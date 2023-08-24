@@ -41,6 +41,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+		{"nop", nop},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -130,7 +131,7 @@ int main(int argc, char **argv)
 		line = tok;
 		if ((strcmp(line, "pall") != 0) || (strcmp(line, "pint") != 0) ||
 			(strcmp(line, "pop") != 0) || (strcmp(line, "swap") != 0) ||
-			(strcmp(line, "add") != 0))
+			(strcmp(line, "add") != 0) || (strcmp(line, "nop") != 0))
 		{
 			tok = strtok(NULL, "\n\t \r");
 			if (tok)

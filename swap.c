@@ -50,3 +50,15 @@ void add(stack_t **stack, unsigned int line_number)
 	new->next = (*stack);
 	(*stack) = new;
 }
+
+/**
+ * nop - doesn’t do anything.
+ * @stack: pointer to the stark to push to
+ * @line_number: the current line where the command is comming from
+ *
+ * Return: void
+*/
+void nop(stack_t **stack, unsigned int line_number)
+{
+	(void)stack, (void)line_number;
+}
