@@ -81,3 +81,32 @@ void pint(stack_t **stack, unsigned int line_number)
 	}
 	printf("%d\n", (*stack)->n);
 }
+
+/**
+ * pop - Removes the top element of the stack
+ * @stack: pointer to the stark to push to
+ * @line_number: the current line where the command is comming from
+ *
+ * Return: void
+*/
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *nxt;
+
+	if ((*stack) == NULL)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->next == NULL)
+	{
+		free(*stack);
+		(*stack) = NULL;
+		return;
+	}
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+}

@@ -1,6 +1,5 @@
 #include "monty.h"
 #include "dic.h"
-#include <stdio.h>
 
 
 /**
@@ -13,7 +12,6 @@ void _free(struct stack_s *stack)
 {
 	struct stack_s *node, *next;
 
-	(void)num;
 	if (stack == NULL)
 	{
 		return;
@@ -40,6 +38,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
