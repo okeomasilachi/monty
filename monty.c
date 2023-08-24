@@ -39,6 +39,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -60,6 +61,7 @@ FILE  *file_handle(int argc, char *av)
 {
 	FILE *file = NULL;
 
+	(void)av, (void)argc;
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -125,7 +127,8 @@ int main(int argc, char **argv)
 		line[strcspn(line, "\n")] = '\0';
 		tok = strtok(line, "\n\t \r");
 		line = tok;
-		if (strcmp(line, "pall") != 0 || strcmp(line, "pint") != 0)
+		if ((strcmp(line, "pall") != 0) || (strcmp(line, "pint") != 0) ||
+			(strcmp(line, "pop") != 0) || (strcmp(line, "swap") != 0))
 		{
 			tok = strtok(NULL, "\n\t \r");
 			if (tok)
