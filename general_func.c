@@ -31,7 +31,8 @@ void remov(char *str)
 
 	for (i = 0, j = 0; str[i] != '\0'; i++)
 	{
-		if (str[i] != '\t' && str[i] != '\n')
+		if (str[i] != '\t' && str[i] != '\n' && str[i] != '\a' &&
+			str[i] != '\b' && str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
 		{
 			str[j] = str[i];
 			j++;
@@ -65,7 +66,7 @@ void line_space(char *cmd)
 	if (cmd == NULL || *cmd == '\0')
 		return;
 
-	while (*cmd != '\0' && strchr(" \t\n\r", *cmd) == NULL)
+	while (*cmd != '\0' && strchr(" \t\n\r\a\b\v\f\r", *cmd) == NULL)
 		cmd++;
 
 	new = cmd;
