@@ -41,7 +41,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"div", Div}, {"mul", mul},
 		{"mod", mod}, {"#", nop},
 		{"pchar", pchar}, {"pstr", pstr},
-		{"rotl", rotl},
+		{"rotl", rotl}, {"rotr", rotr},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
