@@ -34,16 +34,12 @@ struct instruction_s *_opcode(const char *opcode)
 {
 	unsigned long i;
 	static struct instruction_s opcodes[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{"nop", nop},
-		{"sub", sub},
-		{"div", Div},
-		{"mul", mul},
+		{"push", push}, {"pall", pall},
+		{"pint", pint}, {"pop", pop},
+		{"swap", swap}, {"add", add},
+		{"nop", nop}, {"sub", sub},
+		{"div", Div}, {"mul", mul},
+		{"mod", mod},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -127,13 +123,14 @@ int main(int argc, char **argv)
 		if (r == EOF)
 			break;
 		if (line[0] == '\0' || line[0] == '\t' || line[0] == '\n')
+		{
+			line_number++;
 			continue;
+		}
 		line[strcspn(line, "\n")] = '\0';
 		tok = strtok(line, "\n\t \r");
 		line = tok;
-		if ((strcmp(line, "pall") != 0) || (strcmp(line, "pint") != 0) ||
-			(strcmp(line, "pop") != 0) || (strcmp(line, "swap") != 0) ||
-			(strcmp(line, "add") != 0) || (strcmp(line, "nop") != 0))
+		if ((strcmp(line, "pall") != 0) || (strcmp(line, "pint") != 0))
 		{
 			tok = strtok(NULL, "\n\t \r");
 			if (tok)
