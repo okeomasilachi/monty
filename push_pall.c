@@ -26,15 +26,39 @@ bool _digits(char *ptr)
 */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *temp;
 
-	if (_digits(num) && num != NULL)
+	if (_digits(monty->num) && monty->num != NULL)
 	{
-		new = malloc(sizeof(stack_t));
-		new->n = atoi(num);
-		new->prev = NULL;
-		new->next = (*stack);
-		(*stack) = new;
+		if (monty->que == false)
+		{
+			new = malloc(sizeof(stack_t));
+			new->n = atoi(monty->num);
+			new->prev = NULL;
+			new->next = (*stack);
+			(*stack) = new;
+			return;
+		}
+		else if (monty->que == true)
+		{
+			new = malloc(sizeof(stack_t));
+			new->n = atoi(monty->num);
+			new->prev = NULL;
+			new->next = NULL;
+			if ((*stack) == NULL)
+			{
+				(*stack) = new;
+				return;
+			}
+			temp = (*stack);
+			while ((*stack)->next != NULL)
+				(*stack) = (*stack)->next;
+
+			new->prev = (*stack);
+			(*stack)->next = new;
+			(*stack) = temp;
+			return;
+		}
 	}
 	else
 	{
@@ -91,7 +115,7 @@ void pint(stack_t **stack, unsigned int line_number)
 */
 void pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *nxt;
+	stack_t *nxt, *temp;
 
 	if ((*stack) == NULL)
 	{
@@ -104,9 +128,23 @@ void pop(stack_t **stack, unsigned int line_number)
 		(*stack) = NULL;
 		return;
 	}
-	nxt = (*stack)->next;
-	(*stack)->next = NULL;
-	nxt->prev = NULL;
-	free(*stack);
-	(*stack) = nxt;
+	if (monty->que == false)
+	{
+		nxt = (*stack)->next;
+		(*stack)->next = NULL;
+		nxt->prev = NULL;
+		free(*stack);
+		(*stack) = nxt;
+	}
+	if (monty->que == true)
+	{
+		temp = (*stack);
+		while ((*stack)->next->next != NULL)
+			(*stack) = (*stack)->next;
+
+		(*stack)->next->prev = NULL;
+		free((*stack)->next);
+		(*stack)->next = NULL;
+		(*stack) = temp;
+	}
 }

@@ -42,6 +42,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"mod", mod}, {"#", nop},
 		{"pchar", pchar}, {"pstr", pstr},
 		{"rotl", rotl}, {"rotr", rotr},
+		{"stack", stack}, {"queue", queue},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -115,12 +116,13 @@ int main(int argc, char **argv)
 	size_t line_length;
 	char *tok, *line;
 
-	(void)num;
 	file = file_handle(argc, argv[1]);
+	monty = malloc(sizeof(struct opcode));
+	monty->que = false;
+	monty->num = NULL;
 	while (1)
 	{
-		line = NULL;
-		line_length = 0;
+		line = NULL, line_length = 0;
 		r = getline(&line, &line_length, file);
 		if (r == EOF)
 			break;
@@ -136,15 +138,14 @@ int main(int argc, char **argv)
 		{
 			tok = strtok(NULL, "\n\t \r");
 			if (tok)
-				num = tok;
+				monty->num = tok;
 			else
-				num = NULL;
+				monty->num = NULL;
 		}
 		opcode = op_cd(line, line_number);
 		opcode->f(&stack, line_number);
 		line_number++;
 	}
-	_free(stack);
-	fclose(file);
+	_free(stack), fclose(file);
 	return (EXIT_SUCCESS);
 }

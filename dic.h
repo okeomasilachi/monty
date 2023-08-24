@@ -2,6 +2,7 @@
 #define DIC_H
 
 #include "monty.h"
-void *num = NULL;
+
+Monty *monty = NULL;
 
 #endif /* DIC_H */

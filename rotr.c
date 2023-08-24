@@ -39,3 +39,31 @@ void rotr(stack_t **stack, unsigned int line_number)
 	temp->next = (*stack);
 	(*stack) = temp;
 }
+
+/**
+ * stack - sets the format of the data to a stack (LIFO).
+ * @stack: pointer to the stark to push to
+ * @line_number: the current line where the command is comming from
+ *
+ * Return: void
+*/
+void stack(stack_t **stack, unsigned int line_number)
+{
+	(void)stack, (void)line_number;
+	if (monty->que != false)
+		monty->que = false;
+}
+
+/**
+ * queue - sets the format of the data to a queue (FIFO).
+ * @stack: pointer to the stark to push to
+ * @line_number: the current line where the command is comming from
+ *
+ * Return: void
+*/
+void queue(stack_t **stack, unsigned int line_number)
+{
+	(void)stack, (void)line_number;
+	if (monty->que != true)
+		monty->que = true;
+}
