@@ -95,15 +95,10 @@ void pstr(stack_t **stack, unsigned int line_number)
 	{
 		putchar('\n');
 	}
-	if ((*stack)->n > 127 || (*stack)->n < 0)
-	{
-		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
-		exit(EXIT_FAILURE);
-	}
 	temp = (*stack);
 	while (temp != NULL)
 	{
-		if (temp->n > 127 || temp->n < 32)
+		if (temp->n > 127 || temp->n < 1)
 			break;
 		printf("%c", (char)temp->n);
 		temp = temp->next;
