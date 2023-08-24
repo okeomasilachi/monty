@@ -122,15 +122,13 @@ int main(int argc, char **argv)
 		r = getline(&line, &line_length, file);
 		if (r == EOF)
 			break;
-		remov(line);
-		line_space(line);
+		remov(line), line_space(line);
 		if (empty(line))
 		{
 			line_number++;
 			continue;
 		}
-		line[strcspn(line, "\n")] = '\0';
-		tok = strtok(line, "\n\t \r");
+		line[strcspn(line, "\n")] = '\0', tok = strtok(line, "\n\t \r");
 		line = tok;
 		if ((strcmp(line, "pall") != 0) || (strcmp(line, "pint") != 0))
 		{
