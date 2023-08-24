@@ -39,6 +39,7 @@ struct instruction_s *_opcode(const char *opcode)
 	static struct instruction_s opcodes[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -125,7 +126,7 @@ int main(int argc, char **argv)
 		line[strcspn(line, "\n")] = '\0';
 		tok = strtok(line, "\n\t \r");
 		line = tok;
-		if (strcmp(line, "pall") != 0)
+		if (strcmp(line, "pall") != 0 || strcmp(line, "pint") != 0)
 		{
 			tok = strtok(NULL, "\n\t \r");
 			if (tok)
