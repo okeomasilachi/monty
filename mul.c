@@ -108,3 +108,33 @@ void pstr(stack_t **stack, unsigned int line_number)
 	}
 	putchar('\n');
 }
+
+/**
+ * rotl - rotates the stack to the top
+ * @stack: pointer to the stark to push to
+ * @line_number: the current line where the command is comming from
+ *
+ * Return: void
+*/
+void rotl(stack_t **stack, unsigned int line_number)
+{
+	int i;
+	stack_t *new, *cur, *temp;
+
+	if ((*stack) == NULL || (*stack)->next == NULL)
+		return;
+	i = (*stack)->n;
+	pop(stack, line_number);
+	new = malloc(sizeof(stack_t));
+	new->n = i;
+	new->next = NULL;
+	temp = (*stack);
+	cur = temp;
+	while (cur->next != NULL)
+	{
+		cur = cur->next;
+	}
+	cur->next = new;
+	new->prev = cur;
+	(*stack) = temp;
+}
