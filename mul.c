@@ -78,3 +78,35 @@ void pchar(stack_t **stack, unsigned int line_number)
 	}
 	printf("%c\n", (char)(*stack)->n);
 }
+
+/**
+ * pstr - prints the string starting at the top of the stack,
+ *		followed by a new line
+ * @stack: pointer to the stark to push to
+ * @line_number: the current line where the command is comming from
+ *
+ * Return: void
+*/
+void pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+
+	if ((*stack) == NULL)
+	{
+		putchar('\n');
+	}
+	if ((*stack)->n > 127 || (*stack)->n < 0)
+	{
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = (*stack);
+	while (temp != NULL)
+	{
+		if (temp->n > 127 || temp->n < 32)
+			break;
+		printf("%c", (char)temp->n);
+		temp = temp->next;
+	}
+	putchar('\n');
+}
