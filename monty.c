@@ -1,7 +1,6 @@
 #include "monty.h"
 #include "dic.h"
 
-
 /**
  * _free - free's memory allocated for a stack
  * @stack: pointer to the stack to free
@@ -43,6 +42,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", Div},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
