@@ -41,6 +41,10 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+int empty(const char *str);
+void remov(char *str);
+void line_space(char *cmd);
+
 void _free(struct stack_s *stack);
 struct instruction_s *_opcode(const char *opcode);
 FILE  *file_handle(int argc, char *av);
