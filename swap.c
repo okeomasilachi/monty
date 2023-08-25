@@ -15,8 +15,9 @@ void swap(stack_t **stack, unsigned int line_number)
 	if (temp->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
-		free_line();
-		_free(*stack);
+		free_s((*stack));
+		free_all();
+		free(mo);	
 		exit(EXIT_FAILURE);
 	}
 	n = temp->n;
@@ -42,8 +43,9 @@ void add(stack_t **stack, unsigned int line_number)
 	if ((*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-		free_line();
-		_free(*stack);
+		free_s((*stack));
+		free_all();
+		free(mo);
 		exit(EXIT_FAILURE);
 	}
 	new = malloc(sizeof(stack_t));
@@ -82,8 +84,9 @@ void sub(stack_t **stack, unsigned int line_number)
 	if ((*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
-		free_line();
-		_free(*stack);
+		free_s((*stack));
+		free_all();
+		free(mo);
 		exit(EXIT_FAILURE);
 	}
 	new = malloc(sizeof(stack_t));
@@ -110,15 +113,17 @@ void Div(stack_t **stack, unsigned int line_number)
 	if ((*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
-		free_line();
-		_free(*stack);
+		free_s((*stack));
+		free_all();
+		free(mo);
 		exit(EXIT_FAILURE);
 	}
 	if ((*stack)->n == 0)
 	{
 		fprintf(stderr, "L%d: division by zero\n", line_number);
-		free_line();
-		_free(*stack);
+		free_s((*stack));
+		free_all();
+		free(mo);
 		exit(EXIT_FAILURE);
 	}
 	new = malloc(sizeof(stack_t));
