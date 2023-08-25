@@ -1,20 +1,12 @@
 #include "monty.h"
 
 /**
- * _digits - cheaks if a string is all numbers
- * @ptr: pointer to the string
- *
- * Return: true if string is all integers else false
+ * 
 */
-bool _digits(char *ptr)
+void free_all(void)
 {
-	while (*ptr)
-	{
-		if (!isdigit(*ptr))
-			return (false);
-		ptr++;
-	}
-	return (true);
+	if (mo->line != NULL)
+		free(mo->line);
 }
 
 /**
@@ -28,20 +20,21 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
 
-	if (mo->num == NULL)
+	if (num_only(mo->num) == false || mo->num == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	if (_digits(mo->num))
+	else
 	{
 		new = malloc(sizeof(stack_t));
-		new->n = atoi(mo->num);
+		new->n = value();
 		new->prev = NULL;
 		new->next = (*stack);
 		(*stack) = new;
 	}
 }
+
 
 /**
  * pall - prints all the values in a stark
@@ -55,6 +48,7 @@ void pall(stack_t **stack, unsigned int line_number)
 	stack_t *cur = mo->stack;
 
 	V line_number, V stack;
+
 	if (cur == NULL)
 		return;
 	while (cur != NULL)

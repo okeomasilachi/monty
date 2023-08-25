@@ -4,26 +4,16 @@
 
 
 /**
- * _free - free's memory allocated for a stack
- * @stack: pointer to the stack to free
+ * free_s - free's memory allocated for a stack
  *
  * Return: void
 */
-void free_s()
+void free_s(stack_t *stack)
 {
-	struct stack_s *node = NULL, *next = NULL;
-
-	if (mo->stack == NULL)
-	{
+	if (stack == NULL)
 		return;
-	}
-	node = mo->stack;
-	while (node != NULL)
-	{
-		next = node->next;
-		free(node);
-		node = next;
-	}
+	free_s(stack->next);
+	free(stack);
 }
 
 /**
@@ -59,12 +49,14 @@ FILE  *file_handle(int argc, char *av)
 {
 	FILE *file = NULL;
 
+	V argc, V av;
+/* 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
-	}
-	file = fopen(av, "r");
+	} */
+	file = fopen("fi", "r");
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", av);
@@ -93,6 +85,8 @@ instruction_t *op_cd(char *line, unsigned int line_number)
 	return (opcode);
 }
 
+
+
 /**
  * main - entry point
  * @argc: argument count
@@ -106,22 +100,19 @@ int main(int argc, char **argv)
 	unsigned int line_number = 1;
 	ssize_t r;
 	instruction_t *opcode = NULL;
-	size_t line_length;
+	size_t line_length = 0;
 	char *tok;
 
 	file = file_handle(argc, argv[1]);
-	mo = malloc(sizeof(Monty));
+	__int();
 	while (1)
 	{
-		mo->line = NULL;
-		line_length = 0;
 		r = getline(&mo->line, &line_length, file);
 		if (r == EOF)
 			break;
 		while (*mo->line != '\0' && strchr("\t\n\r \v\f\b\a", *mo->line) != NULL)
 			mo->line++;
-		line_space(mo->line);
-		remov(mo->line);
+		line_space(mo->line), remov(mo->line);
 		if (strchr("\t\n\r \v\f\b\a", *mo->line) != NULL)
 		{
 			line_number++;
@@ -135,16 +126,13 @@ int main(int argc, char **argv)
 			if (tok)
 				mo->num = tok;
 			else
-			{
 				mo->num = NULL;
-			}
 		}
 		opcode = op_cd(mo->line, line_number);
 		opcode->f(&mo->stack, line_number);
 		line_number++;
-		free(mo->line);
 	}
-	free_s(), free(mo->line), free(mo);
+	free_s(mo->stack), free_all(), free(mo);
 	fclose(file);
 	return (EXIT_SUCCESS);
 }

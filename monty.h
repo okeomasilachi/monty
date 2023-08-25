@@ -28,6 +28,15 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
+/**
+ * struct opcode - extern struct for the monty interpreter
+ * @num: holdes values for the push opcode
+ * @que: changes the data (stack) type to either queue of stack
+ * @line: holds the command from each line on line per time
+ * @stack: holdes the stack
+ *
+ * Description: stack, queues, LIFO, FIFO
+ */
 typedef struct opcode
 {
 	char *num;
@@ -53,16 +62,19 @@ typedef struct instruction_s
 } instruction_t;
 
 void remov(char *str);
-int empty(const char *str);
+void __int(void);
 void line_space(char *cmd);
+bool num_only(const char *str);
+int value(void);
 
 
-void free_s();
+void free_s(stack_t *stack);
 struct instruction_s *_opcode(const char *opcode);
 FILE  *file_handle(int argc, char *av);
 instruction_t *op_cd(char *line, unsigned int line_number);
-bool _digits(char *ptr);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+
+void free_all(void);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 

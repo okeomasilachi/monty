@@ -1,20 +1,17 @@
 #include "monty.h"
 
 /**
- * empty - checks if an address pointed to by a pointer is empty
- * @str: string to be checked
+ * __int - intialize values in struct Monty
  *
- * Return: 0 if empty else 1
+ * Return: void
 */
-int empty(const char *str)
+void __int(void)
 {
-	while (*str)
-	{
-		if (!isspace(*str))
-			return (0);
-		str++;
-	}
-	return (1);
+	mo = malloc(sizeof(Monty));
+	mo->line = NULL;
+	mo->num = NULL;
+	mo->que = false;
+	mo->stack = NULL;
 }
 
 
@@ -82,4 +79,57 @@ void line_space(char *cmd)
 		new++;
 	}
 	*new = '\0';
+}
+
+/**
+ * num_only - cheaks if a string is all numbers
+ * @str: pointer to the string
+ *
+ * Return: true if string is all integers else false
+*/
+bool num_only(const char *str)
+{
+	static int isNegative;
+
+	if (str == NULL || *str == '\0')
+		return (false);
+
+	if (*str == '-')
+	{
+		isNegative++;
+		str++;
+	}
+	while (*str != '\0')
+	{
+		if (*str < '0' || *str > '9')
+			return (false);
+
+		str++;
+	}
+
+	return (true);
+}
+
+/**
+ * value - checks if a value in fomat char is negative
+ *
+ * Return: Neagtive int is char is negative
+ * else positive int is returned
+*/
+int value(void)
+{
+	static int isNegative;
+	int value;
+
+	if (isNegative == 1)
+	{
+		isNegative = 0;
+		value = atoi(mo->num);
+		value = 0 - value;
+		return (value);
+	}
+	else
+	{
+		return (atoi(mo->num));
+	}
 }
