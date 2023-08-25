@@ -1,7 +1,9 @@
 #include "monty.h"
 
 /**
- * 
+ * free_all - free's all alloacation by getline
+ *
+ * Return: void
 */
 void free_all(void)
 {
