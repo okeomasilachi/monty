@@ -5,6 +5,7 @@
 
 /**
  * free_s - free's memory allocated for a stack
+ * @stack: The stack to free
  *
  * Return: void
 */
