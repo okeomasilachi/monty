@@ -28,23 +28,18 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
 
-	if (_digits(mo->num) && mo->num != NULL)
+	if (mo->num == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	if (_digits(mo->num))
 	{
 		new = malloc(sizeof(stack_t));
 		new->n = atoi(mo->num);
 		new->prev = NULL;
 		new->next = (*stack);
 		(*stack) = new;
-	}
-	else if (mo->num == NULL)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
 	}
 }
 
@@ -57,9 +52,9 @@ void push(stack_t **stack, unsigned int line_number)
 */
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *cur = (*stack);
+	stack_t *cur = mo->stack;
 
-	(void)line_number;
+	V line_number, V stack;
 	if (cur == NULL)
 		return;
 	while (cur != NULL)

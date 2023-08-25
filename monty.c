@@ -11,7 +11,7 @@
 */
 void free_s()
 {
-	struct stack_s *node, *next;
+	struct stack_s *node = NULL, *next = NULL;
 
 	if (mo->stack == NULL)
 	{
@@ -127,21 +127,24 @@ int main(int argc, char **argv)
 			line_number++;
 			continue;
 		}
-		tok = strtok(mo->line, "\n\t \r");
+		tok = strtok(mo->line, "\t\n\r \v\f\b\a");
 		mo->line = tok;
-		if (strcmp(mo->line, "pall") != 0)
+		if (strcmp(mo->line, "push") == 0)
 		{
-			tok = strtok(NULL, "\n\t \r");
-			if (tok != NULL)
+			tok = strtok(NULL, "\t\n\r \v\f\b\a");
+			if (tok)
 				mo->num = tok;
 			else
+			{
 				mo->num = NULL;
+			}
 		}
 		opcode = op_cd(mo->line, line_number);
 		opcode->f(&mo->stack, line_number);
 		line_number++;
+		free(mo->line);
 	}
-	free_s();
+	free_s(), free(mo->line), free(mo);
 	fclose(file);
 	return (EXIT_SUCCESS);
 }
