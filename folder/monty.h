@@ -1,7 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,8 +8,8 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#define V (void)
 #define ERR 2
+
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -36,7 +35,7 @@ typedef struct opcode
 	stack_t *stack;
 } Monty;
 
-extern Monty *mo;
+extern Monty *monty;
 
 /**
  * struct instruction_s - opcode and its function
@@ -52,12 +51,12 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void remov(char *str);
 int empty(const char *str);
+void remov(char *str);
 void line_space(char *cmd);
 
-
-void free_s();
+void _free(struct stack_s *stack);
+void free_line();
 struct instruction_s *_opcode(const char *opcode);
 FILE  *file_handle(int argc, char *av);
 instruction_t *op_cd(char *line, unsigned int line_number);
@@ -65,5 +64,20 @@ bool _digits(char *ptr);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+/* void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void Div(stack_t **stack, unsigned int line_number);
+void mul(stack_t **stack, unsigned int line_number);
+void mod(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
+void queue(stack_t **stack, unsigned int line_number);
+void stack(stack_t **stack, unsigned int line_number);
+ */
 #endif /* MONTY_H */

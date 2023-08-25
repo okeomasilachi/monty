@@ -1,7 +1,5 @@
 #include "monty.h"
 #include "dic.h"
-#include <stdio.h>
-
 
 /**
  * _free - free's memory allocated for a stack
@@ -9,23 +7,18 @@
  *
  * Return: void
 */
-void free_s()
+/* void _free(struct stack_s *stack)
 {
-	struct stack_s *node, *next;
-
-	if (mo->stack == NULL)
-	{
-		return;
-	}
-	node = mo->stack;
-	while (node != NULL)
-	{
-		next = node->next;
-		free(node);
-		node = next;
-	}
+	free(monty);
+	free_line(stack);
 }
 
+void free_line()
+{
+	if (monty->line)
+		free(monty->line);
+}
+ */
 /**
  * _opcode - gets the function to run from the command
  * @opcode: command from the command line
@@ -36,8 +29,15 @@ struct instruction_s *_opcode(const char *opcode)
 {
 	unsigned long i;
 	static struct instruction_s opcodes[] = {
-		{"push", push},
-		{"pall", pall},
+		{"push", push}, {"pall", pall},
+		{"pint", pint}, {"pop", pop},
+	/* 	{"swap", swap}, {"add", add},
+		{"nop", nop}, {"sub", sub},
+		{"div", Div}, {"mul", mul},
+		{"mod", mod}, {"#", nop},
+		{"pchar", pchar}, {"pstr", pstr},
+		{"rotl", rotl}, {"rotr", rotr},
+		{"stack", stack}, {"queue", queue}, */
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -59,12 +59,13 @@ FILE  *file_handle(int argc, char *av)
 {
 	FILE *file = NULL;
 
-	if (argc != 2)
+	(void)av, (void)argc;
+/* 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
-	}
-	file = fopen(av, "r");
+	} */
+	file = fopen("./file", "r");
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", av);
@@ -110,38 +111,41 @@ int main(int argc, char **argv)
 	char *tok;
 
 	file = file_handle(argc, argv[1]);
-	mo = malloc(sizeof(Monty));
+	monty = malloc(sizeof(struct opcode));
+	monty->que = false;
+	monty->num = NULL;
+	monty->stack = NULL;
 	while (1)
 	{
-		mo->line = NULL;
+		monty->line = NULL;
 		line_length = 0;
-		r = getline(&mo->line, &line_length, file);
+		r = getline(&monty->line, &line_length, file);
 		if (r == EOF)
 			break;
-		while (*mo->line != '\0' && strchr("\t\n\r \v\f\b\a", *mo->line) != NULL)
-			mo->line++;
-		line_space(mo->line);
-		remov(mo->line);
-		if (strchr("\t\n\r \v\f\b\a", *mo->line) != NULL)
+		
+		remov(monty->line), line_space(monty->line);
+		printf("%s", monty->line);
+		if (monty->line[0] == '\0' || monty->line[0] == '\n')
 		{
 			line_number++;
 			continue;
 		}
-		tok = strtok(mo->line, "\n\t \r");
-		mo->line = tok;
-		if (strcmp(mo->line, "pall") != 0)
+		monty->line[strcspn(monty->line, "\n")] = '\0';
+		printf("%s", monty->line);
+		tok = strtok(monty->line, "\n\t \r");
+		monty->line = tok;
+		if (strcmp(monty->line, "push") == 0)
 		{
 			tok = strtok(NULL, "\n\t \r");
 			if (tok != NULL)
-				mo->num = tok;
+				monty->num = tok;
 			else
-				mo->num = NULL;
+				monty->num = NULL;
 		}
-		opcode = op_cd(mo->line, line_number);
-		opcode->f(&mo->stack, line_number);
+		opcode = op_cd(monty->line, line_number);
+		opcode->f(&monty->stack, line_number);
 		line_number++;
 	}
-	free_s();
 	fclose(file);
 	return (EXIT_SUCCESS);
 }
