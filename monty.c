@@ -31,6 +31,7 @@ struct instruction_s *_opcode(const char *opcode)
 		{"pint", pint}, {"pop", pop},
 		{"swap", swap}, {"add", add},
 		{"sub", sub}, {"div", Div},
+		{"nop", nop},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
