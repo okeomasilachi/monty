@@ -28,7 +28,7 @@ struct instruction_s *_opcode(const char *opcode)
 	unsigned long i;
 	static struct instruction_s opcodes[] = {
 		{"push", push}, {"pall", pall},
-		{"pint", pint},
+		{"pint", pint}, {"pop", pop}
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
