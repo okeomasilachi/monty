@@ -31,10 +31,9 @@ struct instruction_s *_opcode(const char *opcode)
 		{"pint", pint}, {"pop", pop},
 		{"swap", swap}, {"add", add},
 		{"sub", sub}, {"div", Div},
-		{"nop", nop}, {"#", nop},
-		{"mul", mul}, {"mod", mod},
-		{"pchar", pchar}, {"pstr", pstr},
-		{"rotl", rotl},
+		{"nop", nop}, {"mul", mul},
+		{"mod", mod}, {"pchar", pchar},
+		{"pstr", pstr}, {"rotl", rotl},
 	};
 
 	for (i = 0; i < sizeof(opcodes) / sizeof(opcodes[0]); i++)
@@ -120,7 +119,7 @@ int main(int argc, char **argv)
 		while (*mo->line != '\0' && strchr("\t\n\r \v\f\b\a", *mo->line) != NULL)
 			mo->line++;
 		line_space(mo->line), remov(mo->line);
-		if (strchr("\t\n\r \v\f\b\a", *mo->line) != NULL)
+		if (strchr("\t\n\r \v\f\b\a#", *mo->line) != NULL)
 		{
 			line_number++;
 			continue;
