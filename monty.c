@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 		opcode->f(&mo->stack, line_number);
 		line_number++;
 	}
-	free_s(mo->stack), free_all(), free(mo);
+	free_s(mo->stack), free_all(mo->line), free(mo);
 	fclose(file);
 	return (EXIT_SUCCESS);
 }

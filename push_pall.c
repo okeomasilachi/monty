@@ -5,10 +5,10 @@
  *
  * Return: void
 */
-void free_all(void)
+void free_all(char *line)
 {
-	if (mo->line != NULL)
-		free(mo->line);
+	if (line && line != NULL)
+		free(line);
 }
 
 /**
@@ -73,7 +73,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		free_s((*stack));
-		free_all();
+		free_all(mo->line);
 		free(mo);
 		exit(EXIT_FAILURE);
 	}
@@ -95,7 +95,7 @@ void pop(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		free_s((*stack));
-		free_all();
+		free_all(mo->line);
 		free(mo);
 		exit(EXIT_FAILURE);
 	}
