@@ -10,7 +10,7 @@
 */
 void mul(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *nxt = NULL;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
 	{
@@ -23,8 +23,19 @@ void mul(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	new->n = ((*stack)->next->n * (*stack)->n);
 	new->prev = NULL;
-	pop(stack, line_number);
-	pop(stack, line_number);
+	/* removing the first and second values */
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+	/* pushing the values */
 	new->next = (*stack);
 	(*stack) = new;
 }
@@ -39,7 +50,7 @@ void mul(stack_t **stack, unsigned int line_number)
 */
 void mod(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *nxt = NULL;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
 	{
@@ -60,8 +71,19 @@ void mod(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	new->n = ((*stack)->next->n % (*stack)->n);
 	new->prev = NULL;
-	pop(stack, line_number);
-	pop(stack, line_number);
+	/* removing the first and second values */
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+	/* pushing the value */
 	new->next = (*stack);
 	(*stack) = new;
 }
@@ -80,7 +102,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		free_s((*stack));
 		free_all(mo->line);
-		free(mo);	
+		free(mo);
 		exit(EXIT_FAILURE);
 	}
 	if ((*stack)->n > 127 || (*stack)->n < 1)
@@ -88,7 +110,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 		free_s((*stack));
 		free_all(mo->line);
-		free(mo);	
+		free(mo);
 		exit(EXIT_FAILURE);
 	}
 	printf("%c\n", (char)(*stack)->n);
@@ -135,12 +157,18 @@ void pstr(stack_t **stack, unsigned int line_number)
 void rotl(stack_t **stack, unsigned int line_number)
 {
 	int i;
-	stack_t *new, *cur, *temp;
+	stack_t *new, *cur, *temp, *nxt;
+
+	V line_number;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
 		return;
 	i = (*stack)->n;
-	pop(stack, line_number);
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
 	new = malloc(sizeof(stack_t));
 	new->n = i;
 	new->next = NULL;

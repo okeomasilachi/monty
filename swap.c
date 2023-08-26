@@ -38,7 +38,7 @@ void swap(stack_t **stack, unsigned int line_number)
 */
 void add(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *nxt = NULL;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
 	{
@@ -51,8 +51,19 @@ void add(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	new->n = ((*stack)->n + (*stack)->next->n);
 	new->prev = NULL;
-	pop(stack, line_number);
-	pop(stack, line_number);
+	/* removing the first and second values */
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+	/* pushing the added values */
 	new->next = (*stack);
 	(*stack) = new;
 }
@@ -79,7 +90,7 @@ void nop(stack_t **stack, unsigned int line_number)
 */
 void sub(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *nxt = NULL;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
 	{
@@ -92,8 +103,19 @@ void sub(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	new->n = ((*stack)->next->n - (*stack)->n);
 	new->prev = NULL;
-	pop(stack, line_number);
-	pop(stack, line_number);
+	/* removing the first and second values */
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+	/* pushing the added values */
 	new->next = (*stack);
 	(*stack) = new;
 }
@@ -108,7 +130,7 @@ void sub(stack_t **stack, unsigned int line_number)
 */
 void Div(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *nxt;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
 	{
@@ -129,8 +151,19 @@ void Div(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	new->n = ((*stack)->next->n / (*stack)->n);
 	new->prev = NULL;
-	pop(stack, line_number);
-	pop(stack, line_number);
+	/* removing the first and second values */
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+
+	nxt = (*stack)->next;
+	(*stack)->next = NULL;
+	nxt->prev = NULL;
+	free(*stack);
+	(*stack) = nxt;
+	/* pushing the added values */
 	new->next = (*stack);
 	(*stack) = new;
 }

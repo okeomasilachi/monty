@@ -2,6 +2,7 @@
 
 /**
  * free_all - free's all alloacation by getline
+ * @line: pointer to the string
  *
  * Return: void
 */
@@ -20,7 +21,7 @@ void free_all(char *line)
 */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	stack_t *new, *temp;
 
 	if (num_only(mo->num) == false || mo->num == NULL)
 	{
@@ -29,11 +30,35 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		new = malloc(sizeof(stack_t));
-		new->n = value();
-		new->prev = NULL;
-		new->next = (*stack);
-		(*stack) = new;
+		if (mo->que == false)
+		{
+			new = malloc(sizeof(stack_t));
+			new->n = value();
+			new->prev = NULL;
+			new->next = (*stack);
+			(*stack) = new;
+			return;
+		}
+		else if (mo->que == true)
+		{
+			new = malloc(sizeof(stack_t));
+			new->n = value();
+			new->prev = NULL;
+			new->next = NULL;
+			if ((*stack) == NULL)
+			{
+				(*stack) = new;
+				return;
+			}
+			temp = (*stack);
+			while ((*stack)->next != NULL)
+				(*stack) = (*stack)->next;
+
+			new->prev = (*stack);
+			(*stack)->next = new;
+			(*stack) = temp;
+			return;
+		}
 	}
 }
 
