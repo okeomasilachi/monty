@@ -12,5 +12,5 @@ add
 pall
 queue
 push 11111
-mod
+add
 pall

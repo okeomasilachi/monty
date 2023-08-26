@@ -126,7 +126,6 @@ int main(int argc, char **argv)
 			line_number++;
 			continue;
 		}
-		if (strncmp(mo->line, "pall", 4) == 0)
 		tok = strtok(mo->line, "\t\n\r \v\f\b\a");
 		mo->line = tok;
 		if (strcmp(mo->line, "push") == 0)
