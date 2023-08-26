@@ -1,16 +1,41 @@
-queue
-push 1
+push 1 This should not be taken into account
+# Comment
 push 2
 push 3
-pall
-stack
+       # Another comment
+#
+#Above is an empty comment
+pint
+nop
 push 4
-push 5
-push 6
-pall
+swap
+pop
+ # Another just below
+      #
 add
-pall
+push 1
+sub
+push 2
+div
+push 12
+mul
+push 9
+mod
+push 0
+push 65
+pchar
+push 66
+push 67
+push 68
+pstr
+rotl
+push 87
+rotr
 queue
-push 11111
-add
+push 98
+push 1
+push 34
+push 344
+stack
+push 13
 pall
