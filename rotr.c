@@ -50,8 +50,8 @@ void rotr(stack_t **stack, unsigned int line_number)
 void stack(stack_t **stack, unsigned int line_number)
 {
 	(void)stack, (void)line_number;
-	if (monty->que != false)
-		monty->que = false;
+	if (mo->que != false)
+		mo->que = false;
 }
 
 /**
@@ -64,6 +64,6 @@ void stack(stack_t **stack, unsigned int line_number)
 void queue(stack_t **stack, unsigned int line_number)
 {
 	(void)stack, (void)line_number;
-	if (monty->que != true)
-		monty->que = true;
+	if (mo->que != true)
+		mo->que = true;
 }
